@@ -1,6 +1,6 @@
 var app = angular.module('flashCards', []);
 
-app.value('whateverName', [
+/*app.value('whateverName', [
     {
         question: 'C. What is Angular?',
         answers: [
@@ -25,4 +25,28 @@ app.value('whateverName', [
             { text: 'It runs an Angular expression that accesses my $scope', correct: true }
         ]
     }
-]);
+]);*/
+
+app.factory('FlashCardsFactory', function ($http) {
+
+    return {
+
+        getFlashCards: function (category) {
+
+            var queryParams = {};
+
+            if (category) {
+                queryParams.category = category;
+            }
+
+            return $http.get('/cards', {
+                params: queryParams
+            }).then(function (response) {
+                return response.data;
+            });
+
+        }
+
+    };
+
+});
