@@ -1,4 +1,4 @@
-app.controller('MainController', function ($scope, FlashCardsFactory) {
+app.controller('MainController', function ($scope, FlashCardsFactory, ScoreFactory) {
 	$scope.categories = [
     	'MongoDB',
     	'Express',
@@ -14,6 +14,11 @@ app.controller('MainController', function ($scope, FlashCardsFactory) {
 		if (!flashCard.answered) {
 			flashCard.answered = true;
 			flashCard.answeredCorrectly = answer.correct;
+
+			if (answer.correct) 
+				ScoreFactory.correct++;
+			else 
+				ScoreFactory.incorrect++;
 		}
 	}
 
@@ -22,5 +27,12 @@ app.controller('MainController', function ($scope, FlashCardsFactory) {
 			$scope.flashCards = response;
 		});
 		$scope.category_pressed = category;
+	}
+
+	$scope.resetCategory = function() {
+		FlashCardsFactory.getFlashCards().then(function(response) {
+			$scope.flashCards = response;
+		});
+		$scope.category_pressed = null;
 	}
 });
