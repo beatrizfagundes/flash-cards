@@ -7,17 +7,19 @@
         <link rel="stylesheet" type="text/css" href="css/style.css" />
     </head>
     <body ng-app="flashCards"> 
-        <div ng-controller="StatsController" id="statistics">
-
-            <div id="scoreboard">
-                <h3>Correct: <span>{{ scores.correct }}</span></h3>
-                <h3>Incorrect: <span>{{ scores.incorrect }}</span></h3>
-            </div>
-
+        
+        <div ng-include="'templates/stats.html'">
         </div>
+
         <div ng-controller="MainController">
 
-            <button ng-repeat="category in categories" class="category-button" ng-click="getCategoryCards(category)" ng-class="{ active: category === category_pressed }"> {{ category }} </button>
+            <button 
+                ng-repeat="category in categories" 
+                class="category-button" 
+                ng-click="getCategoryCards(category)" 
+                ng-class="{ active: category === category_pressed }"> 
+                {{ category }} 
+            </button>
 
             <button ng-click="resetCategory()" class="category-button"> Reset </button>
 
